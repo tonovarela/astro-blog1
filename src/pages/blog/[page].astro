@@ -4,6 +4,7 @@ import type { GetStaticPaths } from 'astro';
 import TypedBlogPost from 'src/components/TypedBlogPost.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
+import { siteConfig } from 'src/config/site-config';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const blogPosts = await getCollection('blog');
@@ -17,7 +18,7 @@ const { page } = Astro.props;
 <MainLayout>
   <div class="py-10 mx-auto">
     <h1 class="text-3xl font-semibold capitalize lg:text-4xl text-white">
-      Fernando's Blog paginado
+     {siteConfig.title}
     </h1>
   </div>
 

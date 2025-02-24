@@ -2,16 +2,13 @@
 import { getCollection } from 'astro:content';
 import { siteConfig } from '../config/site-config';
 import MainLayout from '../layouts/MainLayout.astro';
-import TypedBlogPost from 'src/components/TypedBlogPost.astro';
 
-const blogPosts = await getCollection(
-  'blog',
-  (post) => post.data.isDraft === false
-);
+import Search from 'src/components/react/Search';
+const blogPosts = await getCollection('blog',(post:any) => post.data.isDraft === false);
 ---
 
 <MainLayout title="Fernando's Blog">
-  <!-- component -->
+  
   <section class="bg-white dark:bg-gray-900">
     <div class="container px-6 py-10 mx-auto">
       <h1
@@ -23,9 +20,17 @@ const blogPosts = await getCollection(
       <a class="mr-2" href="/blog/1">Blog paginado</a>
       <a class="mr-2" href="/authors">Autores</a>
 
-      <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
-        {blogPosts.map((post) => <TypedBlogPost post={post} />)}
+      <div class="mt-5  ">
+        <Search client:load searchList={blogPosts} />
       </div>
+      <!-- <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">                
+        {blogPosts.map((post) => <TypedBlogPost post={post} />)}
+      </div> -->
+    
+      
+        <pre class="text-sm text-white">
+          <!-- {JSON.stringify(blogPosts, null, 2)} -->
+        </pre>
     </div>
   </section>
 </MainLayout>
